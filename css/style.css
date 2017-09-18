@@ -1,0 +1,93 @@
+* {margin: 0; padding: 0; box-sizing:border-box!important; }
+
+.carousel {
+    padding-top: 55px;
+}
+
+.container {
+  padding-top: 20px;
+}
+
+.informacion {
+  background-image: url(../img/fondo_celeste.jpg);
+  background-size: cover;
+}
+
+#registracion{
+ padding-top: 100px;
+}
+
+.main-login {
+  margin: 0 auto;
+}
+
+h5 {
+  padding-right: 100px;
+  padding-bottom: 20px;
+}
+
+.p-3 {
+    padding: 0!important;
+}
+
+.mb-2 {
+    margin: 0!important;
+}
+
+.btn-outline:hover {
+    color: black;
+}
+
+.btn-outline {
+  color: black;
+}
+
+.olvidarcontrasenia:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.olvidarcontrasenia {
+  color: #212529;
+}
+
+.btn-outline-success {
+  color: #53BDFF;
+  border-color: #53BDFF;
+}
+
+.iconmirarte {
+  text-decoration: none;
+  color: #fff!important
+}
+
+.iconmirarte:hover {
+  text-decoration: none;
+}
+
+.preguntasfrecuentes {
+  padding-top: 70px;
+}
+
+h2 {
+    font-size: 32px;
+    line-height: 48px;
+    font-family: "Guardian-EgypTT",Georgia,serif;
+    font-weight: 300;
+}
+
+.faq {
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 28px;
+    text-align: left;
+    font-family: Arial,sans-serif;
+}
+
+.faq2 {
+  font-size: 16px;
+  line-height: 28px;
+  margin-bottom: 28px;
+  text-align: center;
+  font-family: Arial,sans-serif;
+}
