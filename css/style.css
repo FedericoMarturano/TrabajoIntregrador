@@ -9,10 +9,13 @@
 }
 
 .informacion {
-  background-image: url(../img/fondo_celeste.jpg);
+  background-image: url(../img/imagen.jpg);
   background-size: cover;
+  color: white;
 }
-
+.nav-link:hover{
+  border-color:#C900C6;
+}
 #registracion{
  padding-top: 100px;
 }
@@ -33,7 +36,9 @@ h5 {
 .mb-2 {
     margin: 0!important;
 }
-
+.my-sm-0:hover{
+  border-color:#C900C6 ;
+}
 .btn-outline:hover {
     color: black;
 }
@@ -52,8 +57,8 @@ h5 {
 }
 
 .btn-outline-success {
-  color: #53BDFF;
-  border-color: #53BDFF;
+  border-color: yellow;
+  background-color: yellow !important;
 }
 
 .iconmirarte {
@@ -90,4 +95,47 @@ h2 {
   margin-bottom: 28px;
   text-align: center;
   font-family: Arial,sans-serif;
+}
+.titulo{
+  position: absolute;
+	width:80px;
+  top: 8px;
+}
+.titulo2{
+	margin-top:8px;
+	width:110px;
+}
+.navbar{
+  background: #FEFF9D !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .navbar-nav {
+      padding-left: 0;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar-nav {
+      padding-left: 90px;
+  }
+}
+#button{
+  margin-top: 20px;
+  margin-bottom: 142px;
+}
+#contrasena{
+  margin-bottom: 295px;
+}
+article{
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.card{
+  background-color: #ebcffb;
+}
+.titulo3{
+  margin: 20px;
+  margin-left: 0;
 }
