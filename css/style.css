@@ -1,5 +1,9 @@
 * {margin: 0; padding: 0; box-sizing:border-box!important; }
 
+#aa{
+  margin-left: 20px;
+}
+
 .carousel {
     padding-top: 55px;
 }
@@ -18,6 +22,10 @@
 }
 #registracion{
  padding-top: 100px;
+}
+
+.controlcontrasena {
+    margin-bottom: 0px;
 }
 
 .main-login {
@@ -122,11 +130,10 @@ h2 {
 }
 #button{
   margin-top: 20px;
+
   margin-bottom: 142px;
 }
-#contrasena{
-  margin-bottom: 295px;
-}
+
 article{
   margin-top: 20px;
   margin-left: 50px;
@@ -138,4 +145,12 @@ article{
 .titulo3{
   margin: 20px;
   margin-left: 0;
+}
+
+.bienvenido {
+  margin-left: 40px;
+}
+
+.nav-link {
+  color: #C900C6;
 }

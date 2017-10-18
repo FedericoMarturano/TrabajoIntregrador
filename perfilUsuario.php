@@ -1,26 +1,49 @@
+<?php
+require_once("funciones.php");
+
+if (!estaLogueado()) {
+  header("Location:index.php");exit;
+}
+
+$title = 'Mi Perfil';
+
+$usuario = getUsuarioLogueado();
+
+?>
+    <div class="row">
+
+    </div>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Registrar</title>
-	</head>
-	<body>
+    <title>Perfil</title>
+
+  </head>
+  <body>
     <header>
       <nav color=yellow class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-		  <a class="navbar-brand" href="index.html"><img class="titulo" src="img/mirarte3.png"></img></a>
-    		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      	    <span class="navbar-toggler-icon"></span>
-    		 </button>
+      <a class="navbar-brand" href="index.php"><img class="titulo" src="img/mirarte3.png"></img></a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
 
-    		 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-               <a class="nav-link" href="registracion.html" style="color:#C900C6">Registrar</a>
+               <?php if(!estaLogueado()){
+                 echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
+               <?php if(estaLogueado()){
+                 echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>'; } ?>
              </li>
              <li class="nav-item active">
-               <a class="nav-link" href="login.html" style="color:#C900C6">Ingresar</a>
+               <?php if(!estaLogueado()){
+                 echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
+               <?php if(estaLogueado()){
+                 echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; } ?>
              </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -32,71 +55,14 @@
         </nav>
 
     </header>
-		<div class="container" id="registracion">
-			<div class="row main">
-				<div class="main-login main-center">
-				<h5 style="color:#C900C6">Registrarse en MirArte</h5>
-					<form class="" method="post" action="#">
-
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Nombre y Apellido</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Escriba su Nombre y Apellido"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label">Email</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="email"  placeholder="Escriba su Email"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label">Nombre de Usuario</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Escriba su Nombre de Usuario"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Escriba su Password"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="confirm" class="cols-sm-2 control-label">Confirmar Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirmar Password"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group ">
-							<a href="" target="_blank" type="button" id="button" class="btn btn-primary btn-lg btn-block login-button">Registrar</a>
-						</div>
-
-					</form>
-				</div>
-			</div>
-		</div>
-
+<br>
+<br>
+    <div class="row bienvenido">
+      <br></br>
+          Bienvenido <?=$usuario["username"];?>
+    </div>
+<br>
+<br>
     <footer class="text-center p-3 mb-2 bg-secondary text-white">
       <div class="footer-above">
         <div class="container">

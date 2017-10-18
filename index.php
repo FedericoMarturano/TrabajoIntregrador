@@ -1,3 +1,8 @@
+<?php
+require_once("funciones.php");
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,14 +13,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 	  <link rel="stylesheet" href="css/style.css">
     <link href="img/A.ico" type="image/x-icon" rel="short cut icon"/>
-    <title> mirArte</title>
+    <title>mirArte</title>
   </head>
 
   <body>
 
     <header>
       <nav color=yellow class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-		  <a class="navbar-brand" href="index.html"><img class="titulo" src="img/mirarte3.png"></img></a>
+		  <a class="navbar-brand" href="index.php"><img class="titulo" src="img/mirarte3.png"></img></a>
     		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       	    <span class="navbar-toggler-icon"></span>
     		 </button>
@@ -23,10 +28,16 @@
     		 <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-               <a class="nav-link" href="registracion.html" style="color:#C900C6">Registrar</a>
+               <?php if(!estaLogueado()){
+                 echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
+               <?php if(estaLogueado()){
+                 echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>'; } ?>
              </li>
              <li class="nav-item active">
-               <a class="nav-link" href="login.html" style="color:#C900C6">Ingresar</a>
+               <?php if(!estaLogueado()){
+                 echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
+               <?php if(estaLogueado()){
+                 echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; } ?>
              </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -95,7 +106,7 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
             </div>
             <div class="col-lg-8 mx-auto text-center">
-              <a href="preguntasfrecuentes.html" class="btn btn-lg btn-outline">
+              <a href="preguntasfrecuentes.php" class="btn btn-lg btn-outline">
                 <h6 style="color:#C900C6"> Conocé mas </h6>
               </a>
             </div>

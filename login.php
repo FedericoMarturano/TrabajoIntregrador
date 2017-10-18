@@ -1,16 +1,43 @@
+<?php
+require_once("funciones.php");
+
+$title = 'LOGIN';
+
+$arrayDeErrores = [];
+
+if ($_POST) {
+  $arrayDeErrores = validarLogin();
+
+  if (count($arrayDeErrores) == 0) {
+    loguear($_POST["username"]);
+    if (isset($_POST["recordame"])) {
+      recordar($_POST["username"]);
+    }
+
+    header("Location:perfilUsuario.php");exit;
+
+
+  }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <title>Login</title>
 	</head>
 	<body>
+
     <header>
       <nav color=yellow class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-		  <a class="navbar-brand" href="index.html"><img class="titulo" src="img/mirarte3.png"></img></a>
+		  <a class="navbar-brand" href="index.php"><img class="titulo" src="img/mirarte3.png"></img></a>
     		 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       	    <span class="navbar-toggler-icon"></span>
     		 </button>
@@ -18,10 +45,16 @@
     		 <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-               <a class="nav-link" href="registracion.html" style="color:#C900C6">Registrar</a>
+               <?php if(!estaLogueado()){
+                 echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
+               <?php if(estaLogueado()){
+                 echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>'; } ?>
              </li>
              <li class="nav-item active">
-               <a class="nav-link" href="login.html" style="color:#C900C6">Ingresar</a>
+               <?php if(!estaLogueado()){
+                 echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
+               <?php if(estaLogueado()){
+                 echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; } ?>
              </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -33,42 +66,58 @@
         </nav>
 
     </header>
+		<div class="container" id="registracion">
+			<div class="row main">
+				<div class="main-login main-center">
+				<h5 style="color:#C900C6">Ingresá tu nombre de usuario y contraseña</h5>
+					<form class="" method="post" action="#">
+            <?php if (count($arrayDeErrores) > 0) : ?>
+              <ul  style="color:#00ccff;">
+                  <?php foreach($arrayDeErrores as $error) : ?>
+                    <li style="margin-left:20px;">
+                      <?=$error?>
+                    </li>
+                  <?php endforeach; ?>
+              </ul>
+            <?php endif;?>
+						<div class="form-group">
+							<label for="username" class="cols-sm-2 control-label" >Nombre de Usuario</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="username" id="username"  placeholder="Escriba su Nombre de Usuario"/>
+								</div>
+							</div>
+						</div>
 
-    <div class="col-group text-center mb-xs-8 preguntasfrecuentes">
-                    <h1 style="color:#C900C6"style="color:#C900C6">
-                    Preguntas frecuentes
-                    </h1>
-                    <p class="faq2"style="color:#00ccff">
-                    Estas son algunas preguntas habituales sobre cómo vender en MirArte
-                    </p>
-                </div>
+						<div class="form-group">
+							<label for="password" class="cols-sm-2 control-label">Password</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" class="form-control" name="contrasena" id="contrasena"  placeholder="Escriba su Password"/>
+								</div>
+							</div>
+						</div>
 
-    <div class="container">
-                <div class="row">
-                  <div class="col">
-                    <h2 style="color:#C900C6">¿Quién hace MirArte?</h2>
-                      <p class="faq" style="color:#00ccff">Mucha gente con talento. Entre ellos, nuestro equipo directivo y nuestros empleados de todo el mundo. Juntos, servimos a una comunidad de millones de negocios creativos y a sus clientes.</p>
-                  </div>
-                  <div class="col">
-                    <h2 style="color:#C900C6">¿Por qué me conviene crear una tienda?</h2>
-                      <p class="faq" style="color:#00ccff">Abrir una tienda en MirArte es sencillo. Créate una cuenta de MirArte (si aún no la tienes), establece la ubicación de tu tienda, elige un nombre para la tienda, crea un anuncio, establece una forma de pago, y para terminar, selecciona una forma de facturación.</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                        <h2 style="color:#C900C6">¿Cómo gana dinero MirArte?</h2>
-                          <p class="faq" style="color:#00ccff">Nuestro modelo de negocio se basa en compartir el éxito: MirArte gana dinero cuando lo hacen sus vendedores. Los ingresos de nuestro servicio de mercado incluyen una tarifa de 20 ARS por publicar cada anuncio y una comisión del 3,5 % sobre cada venta completada en nuestro sitio web.</p>
-                  </div>
-                  <div class="col">
-                    <h2 style="color:#C900C6">¿Qué puedo vender en MirArte?</h2>
-                      <p class="faq" style="color:#00ccff">MirArte proporciona un mercado para que artesanos, artistas y coleccionistas vendan sus propias creaciones hechas a mano, productos vintage y materiales para artesanía hechos a mano o no.</p>
-                  </div>
-                  <div class="col">
-                        <h2 style="color:#C900C6">¿Cómo protege MirArte a los vendedores?</h2>
-                          <p class="faq" style="color:#00ccff">La protección al vendedor es un programa que garantiza tu tranquilidad cuando surgen diferencias sobre una transacción. Si no puedes resolver un desacuerdo con un comprador y la transacción cumple las condiciones correspondientes, MirArte te ayudará a resolver el problema mediante su sistema de resolución de disputas. </p>
-                  </div>
-                </div>
+            <div class="form-group">
+              <input id="recordarme" type="checkbox" name="recordarme">
+              <label for="recordarme">Recordarme</label>
             </div>
+
+						<div class="form-group ">
+							<input value="Ingresar" target="_blank" type="submit" name="btn_submit" id="button1" class="btn btn-primary btn-lg btn-block login-button"></input>
+						</div>
+
+            <hr>
+
+            <p id="contrasena"><a class="olvidarcontrasenia" href="#">¿Olvidaste tu contraseña?</a></p>
+
+
+					</form>
+				</div>
+			</div>
+		</div>
 
     <footer class="text-center p-3 mb-2 bg-secondary text-white">
       <div class="footer-above">
