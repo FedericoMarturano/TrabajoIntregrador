@@ -1,13 +1,11 @@
 <?php
-require_once("funciones.php");
+require_once("soporte.php");
 
-if (!estaLogueado()) {
+if (!$auth->estaLogueado()) {
   header("Location:index.php");exit;
 }
 
-$title = 'Mi Perfil';
-
-$usuario = getUsuarioLogueado();
+$usuario = $auth->obtenerUsuarioLogueado($db);
 
 ?>
     <div class="row">
@@ -34,17 +32,17 @@ $usuario = getUsuarioLogueado();
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-               <?php if(!estaLogueado()){
-                 echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
-               <?php if(estaLogueado()){
-                 echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>'; } ?>
+                 <?php if($auth->estaLogueado()){
+                     echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>';}
+                 else {
+                     echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
              </li>
-             <li class="nav-item active">
-               <?php if(!estaLogueado()){
-                 echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
-               <?php if(estaLogueado()){
-                 echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; } ?>
-             </li>
+               <li class="nav-item active">
+                   <?php if($auth->estaLogueado()){
+                       echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; }
+                   else {
+                       echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
+               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
@@ -57,10 +55,15 @@ $usuario = getUsuarioLogueado();
     </header>
 <br>
 <br>
-    <div class="row bienvenido">
-      <br></br>
-          Bienvenido <?=$usuario["username"];?>
-    </div>
+<br>
+<br>
+    <div>Perfil de <?=$usuario->getNombre()?></div>
+    <ul>
+        <li>Nombre: <?=$usuario->getNombre()?> </li>
+        <li>Apellido: <?=$usuario->getApellido()?> </li>
+        <li>Usuario: <?=$usuario->getUsername()?> </li>
+        <li>Email: <?=$usuario->getEmail()?> </li>
+    </ul>
 <br>
 <br>
     <footer class="text-center p-3 mb-2 bg-secondary text-white">

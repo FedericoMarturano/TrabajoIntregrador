@@ -1,5 +1,5 @@
 <?php
-require_once("funciones.php");
+require_once("soporte.php");
 
 ?>
 
@@ -23,17 +23,17 @@ require_once("funciones.php");
     		 <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-               <?php if(!estaLogueado()){
-                 echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
-               <?php if(estaLogueado()){
-                 echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>'; } ?>
+                 <?php if($auth->estaLogueado()){
+                     echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>';}
+                 else {
+                     echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
              </li>
-             <li class="nav-item active">
-               <?php if(!estaLogueado()){
-                 echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
-               <?php if(estaLogueado()){
-                 echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; } ?>
-             </li>
+               <li class="nav-item active">
+                   <?php if($auth->estaLogueado()){
+                       echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; }
+                   else {
+                       echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
+               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">

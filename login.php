@@ -1,18 +1,23 @@
 <?php
-require_once("funciones.php");
+require_once("soporte.php");
+
+if ($auth->estaLogueado()) {
+    header("Location:index.php");exit;
+}
 
 $title = 'LOGIN';
 
 $arrayDeErrores = [];
 
 if ($_POST) {
-  $arrayDeErrores = validarLogin();
+  $arrayDeErrores = $validator->validarLogin($db);
 
   if (count($arrayDeErrores) == 0) {
-    loguear($_POST["username"]);
-    if (isset($_POST["recordame"])) {
-      recordar($_POST["username"]);
-    }
+      $auth->loguear($_POST["email"]);
+
+      if (isset($_POST["recordame"])) {
+          setcookie("usuarioLogueado", $_POST["email"], time()+60*60*24*30);
+      }
 
     header("Location:perfilUsuario.php");exit;
 
@@ -45,17 +50,17 @@ if ($_POST) {
     		 <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-               <?php if(!estaLogueado()){
-                 echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
-               <?php if(estaLogueado()){
-                 echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>'; } ?>
+                 <?php if($auth->estaLogueado()){
+                     echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>';}
+                 else {
+                     echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
              </li>
-             <li class="nav-item active">
-               <?php if(!estaLogueado()){
-                 echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
-               <?php if(estaLogueado()){
-                 echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; } ?>
-             </li>
+               <li class="nav-item active">
+                   <?php if($auth->estaLogueado()){
+                       echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; }
+                   else {
+                       echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
+               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
@@ -81,11 +86,11 @@ if ($_POST) {
               </ul>
             <?php endif;?>
 						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label" >Nombre de Usuario</label>
+							<label for="username" class="cols-sm-2 control-label" >Email</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Escriba su Nombre de Usuario"/>
+									<input type="text" class="form-control" name="email" id="email"  placeholder="Escriba su Email"/>
 								</div>
 							</div>
 						</div>
@@ -95,7 +100,7 @@ if ($_POST) {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="contrasena" id="contrasena"  placeholder="Escriba su Password"/>
+									<input type="password" class="form-control" name="contrasenia" id="contrasenia"  placeholder="Escriba su Password"/>
 								</div>
 							</div>
 						</div>
@@ -111,7 +116,7 @@ if ($_POST) {
 
             <hr>
 
-            <p id="contrasena"><a class="olvidarcontrasenia" href="#">¿Olvidaste tu contraseña?</a></p>
+            <p id="contrasenia"><a class="olvidarcontrasenia" href="#">¿Olvidaste tu contraseña?</a></p>
 
 
 					</form>

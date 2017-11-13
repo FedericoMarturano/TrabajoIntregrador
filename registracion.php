@@ -1,6 +1,6 @@
 <?php
 
-require_once("funciones.php");
+require_once("soporte.php");
 
 $nombre = $_POST['nombre'] ?? null;
 $apellido = $_POST['apellido'] ?? null;
@@ -11,12 +11,12 @@ $arrayDeErrores = [];
 if($_POST)
 {
 
-    $arrayDeErrores = validarInformacion();
+    $arrayDeErrores = $validator->validarInformacion($db);
 
     if(count($arrayDeErrores) == 0) {
 
-      $usuario = armarUsuario($_POST);
-      guardarUsuario($usuario);
+      $usuario = new Usuario($_POST["nombre"], $_POST["apellido"], $_POST["username"], $_POST["email"], $_POST["contrasenia"]);
+      $db->guardarUsuario($usuario);
 
       $archivo = $_FILES["avatar"]["tmp_name"];
       $nombreDelArchivo = $_FILES["avatar"]["name"];
@@ -51,17 +51,17 @@ if($_POST)
     		 <div class="collapse navbar-collapse" id="navbarSupportedContent">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item active">
-               <?php if(!estaLogueado()){
-                 echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
-               <?php if(estaLogueado()){
-                 echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>'; } ?>
+                 <?php if($auth->estaLogueado()){
+                     echo '<a class="nav-link" href="miPerfil.php">Mi Perfil</a>';}
+                 else {
+                     echo '<a class="nav-link" href="registracion.php">Registrar</a>'; } ?>
              </li>
-             <li class="nav-item active">
-               <?php if(!estaLogueado()){
-                 echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
-               <?php if(estaLogueado()){
-                 echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; } ?>
-             </li>
+               <li class="nav-item active">
+                   <?php if($auth->estaLogueado()){
+                       echo '<a class="nav-link" href="logout.php">Cerrar Sesión</a>'; }
+                   else {
+                       echo '<a class="nav-link" href="login.php">Ingresar</a>'; } ?>
+               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
@@ -132,7 +132,7 @@ if($_POST)
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="contrasena" id="password"  placeholder="Escriba su Password"/>
+									<input type="password" class="form-control" name="contrasenia" id="contrasenia"  placeholder="Escriba su Password"/>
 								</div>
 							</div>
 						</div>
